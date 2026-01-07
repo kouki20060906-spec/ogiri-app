@@ -40,6 +40,32 @@ if (
   path.endsWith("ogiri-app")
 ) {
 
+// index.html からルーム参加
+const joinFromIndexBtn = document.getElementById("joinFromIndexBtn");
+
+if (joinFromIndexBtn) {
+  joinFromIndexBtn.addEventListener("click", () => {
+    const roomCode = document.getElementById("joinRoomCodeInput").value.trim();
+    const name = document.getElementById("joinNameInput").value.trim();
+
+    if (!roomCode || !name) {
+      alert("ルーム番号と名前を入力してください");
+      return;
+    }
+
+    const userId = "user_" + Math.random().toString(36).substr(2, 9);
+    const userRef = db.ref(`rooms/${roomCode}/users/${userId}`);
+
+    userRef.set({
+      name: name,
+      online: true
+    });
+
+    userRef.child("online").onDisconnect().set(false);
+
+    window.location.href = `vote.html?room=${roomCode}&user=${userId}`;
+  });
+}
     const createRoomBtn = document.getElementById("createRoomBtn");
     const goToAnswerBtn = document.getElementById("goToAnswerBtn");
     const roomCodeDisplay = document.getElementById("roomCodeDisplay");
@@ -64,7 +90,32 @@ if (
       window.location.href = `answer.html?room=${createdRoomCode}`;
     });
   }
+// index.html からルーム参加
+const joinFromIndexBtn = document.getElementById("joinFromIndexBtn");
 
+if (joinFromIndexBtn) {
+  joinFromIndexBtn.addEventListener("click", () => {
+    const roomCode = document.getElementById("joinRoomCodeInput").value.trim();
+    const name = document.getElementById("joinNameInput").value.trim();
+
+    if (!roomCode || !name) {
+      alert("ルーム番号と名前を入力してください");
+      return;
+    }
+
+    const userId = "user_" + Math.random().toString(36).substr(2, 9);
+    const userRef = db.ref(`rooms/${roomCode}/users/${userId}`);
+
+    userRef.set({
+      name: name,
+      online: true
+    });
+
+    userRef.child("online").onDisconnect().set(false);
+
+    window.location.href = `vote.html?room=${roomCode}&user=${userId}`;
+  });
+}
   // ==============================
   // join.html（参加者登録）
   // ==============================
