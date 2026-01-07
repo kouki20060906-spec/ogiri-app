@@ -2,11 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-
-  <!-- ★ スマホ対応のために追加するべきコード ★ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>大喜利アプリ - 参加画面</title>
+  <title>大喜利アプリ - ルーム参加</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,12 +15,17 @@
     <input id="nameInput" type="text" placeholder="名前を入力">
 
     <button id="joinBtn" class="primary-btn">参加する</button>
+
+    <button class="secondary-btn" onclick="window.location.href='index.html'">
+      ホームに戻る
+    </button>
   </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <!-- メイン処理 -->
+  <script src="app.js"></script>
 </body>
-
-<!-- ★★★ ここに移動（中央揃えのために必須） ★★★ -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<script src="app.js"></script>
-
 </html>
