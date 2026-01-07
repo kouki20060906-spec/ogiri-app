@@ -149,9 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ==============================
   // vote.html（参加者：投票画面）
-  // ==============================
   if (path.endsWith("vote.html")) {
 
     const params = new URLSearchParams(window.location.search);
@@ -178,21 +176,33 @@ document.addEventListener("DOMContentLoaded", () => {
     db.ref(`rooms/${roomCode}/currentAnswer`).on("value", snap => {
       const answer = snap.val();
       answerText.textContent = answer || "回答を待っています…";
-
-      yesBtn.classList.remove("selected");
-      noBtn.classList.remove("selected");
     });
 
-    yesBtn.addEventListener("click", () => {
+   yesBtn.addEventListener("click", () => {
       db.ref(`rooms/${roomCode}/votes/${userId}`).set("yes");
+
       yesBtn.classList.add("selected");
+      yesBtn.classList.remove("not-selected");
+
+      noBtn.classList.add("not-selected");
+      noBtn.classList.remove("selected");
+
+      document.getElementById("votedIcon").classList.remove("hidden");
     });
 
     noBtn.addEventListener("click", () => {
       db.ref(`rooms/${roomCode}/votes/${userId}`).set("no");
+
       noBtn.classList.add("selected");
+      noBtn.classList.remove("not-selected");
+
+      yesBtn.classList.add("not-selected");
+      yesBtn.classList.remove("selected");
+
+      document.getElementById("votedIcon").classList.remove("hidden");
     });
-  }
+
+  }  
 
   // ==============================
   // result.html（主催者：結果画面）
