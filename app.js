@@ -33,7 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==============================
   // index.html（ルーム作成）
   // ==============================
-  if (path.endsWith("index.html")) {
+  const page = location.href.split("/").pop();
+
+  // GitHub Pages 完全対応
+  if (page === "" || page === "index.html" || page === "ogiri-app") {
 
     const createRoomBtn = document.getElementById("createRoomBtn");
     const goToAnswerBtn = document.getElementById("goToAnswerBtn");
@@ -108,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startVoteBtn = document.getElementById("startVoteBtn");
     const goToResultBtn = document.getElementById("goToResultBtn");
 
-    // ★ 参加者数をリアルタイム更新（追加）
+    // ★ 参加者数をリアルタイム更新
     db.ref(`rooms/${roomCode}/users`).on("value", snap => {
       const users = snap.val() || {};
       const activeCount = Object.values(users).filter(u => u.online).length;
@@ -123,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // ★ アニメーション
       postThemeBtn.classList.add("button-animate");
       setTimeout(() => postThemeBtn.classList.remove("button-animate"), 250);
 
@@ -140,7 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // ★ アニメーション
       startVoteBtn.classList.add("button-animate");
       setTimeout(() => startVoteBtn.classList.remove("button-animate"), 250);
 
@@ -155,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // 手動で結果画面へ
     goToResultBtn.addEventListener("click", () => {
 
-      // ★ アニメーション
       goToResultBtn.classList.add("button-animate");
       setTimeout(() => goToResultBtn.classList.remove("button-animate"), 250);
 
