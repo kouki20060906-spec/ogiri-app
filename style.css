@@ -1,0 +1,219 @@
+/* 全体の背景とフォント */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans JP", sans-serif;
+  background: radial-gradient(circle, #fffbe6, #ffd93d);
+  color: #333;
+}
+
+/* コンテナ */
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* タイトル */
+h1 {
+  text-align: center;
+  font-size: 28px;
+  background: #ff8c42;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* 見出し */
+h2 {
+  font-size: 20px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+/* 入力欄 */
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ffd93d;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+/* ボタン共通 */
+button {
+  font-size: 16px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* プライマリボタン（オレンジ） */
+.primary-btn {
+  background-color: #ff8c42;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  margin-bottom: 12px;
+}
+
+/* セカンダリボタン（白） */
+.secondary-btn {
+  background-color: white;
+  color: #ff8c42;
+  border: 2px solid #ff8c42;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ボタンホバー */
+button:hover {
+  transform: scale(1.05);
+}
+
+/* ボタンアニメーション */
+.button-animate {
+  animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* 投票ボタン（〇×） */
+.vote-btn {
+  width: 120px;
+  height: 120px;
+  font-size: 24px;
+  border-radius: 50%;
+  margin: 12px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.vote-btn.yes {
+  background-color: #4CAF50;
+}
+
+.vote-btn.no {
+  background-color: #F44336;
+}
+
+/* 投票済みアイコン */
+#votedIcon {
+  font-size: 18px;
+  color: #2196F3;
+  margin-top: 12px;
+}
+
+/* 隠す */
+.hidden {
+  display: none;
+}
+
+/* 選択状態 */
+.selected {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.not-selected {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+/* 結果画面の棒グラフ風 */
+.result-bar {
+  height: 24px;
+  border-radius: 12px;
+  margin: 8px 0;
+}
+
+.result-bar.yes {
+  background-color: #4CAF50;
+}
+
+.result-bar.no {
+  background-color: #F44336;
+}
+
+/* 投票ボタンの横並び */
+.vote-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+/* スマホ対応：画面幅が480px以下のとき */
+@media screen and (max-width: 480px) {
+
+  /* 画面全体を上下中央に */
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 400px;
+    margin: 0; /* 中央揃えのため余白を消す */
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 24px;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  input[type="text"] {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .vote-btn {
+    width: 100px;
+    height: 100px;
+    font-size: 20px;
+    margin: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    margin: 0; /* ← これが最重要 */
+    width: 90%;
+    max-width: 400px;
+  }
+}

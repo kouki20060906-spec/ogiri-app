@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ★ スマホ対応のために追加するべきコード ★ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>大喜利アプリ - 参加画面</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .button-animate {
+      animation: pop 0.25s ease;
+    }
+    @keyframes pop {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>主催者画面</h1>
+
+    <p id="roomCodeDisplay"></p>
+    <p>参加者数：<span id="activeCount">0</span></p>
+
+    <h2>お題を入力</h2>
+    <input id="themeInput" type="text" placeholder="お題を入力">
+    <button id="postThemeBtn" class="primary-btn">お題を送信</button>
+
+    <h2>回答を入力</h2>
+    <input id="answerInput" type="text" placeholder="回答を入力">
+    <button id="startVoteBtn" class="primary-btn">投票を開始</button>
+
+    <button id="goToResultBtn" class="secondary-btn">結果を見る</button>
+  </div>
+</body>
+
+<!-- ★★★ ここに移動する（中央揃えのために必須） ★★★ -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="app.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const roomCode = params.get("room");
+  if (roomCode) {
+    document.getElementById("roomCodeDisplay").textContent = "ルーム番号：" + roomCode;
+  }
+</script>
+
+</html>

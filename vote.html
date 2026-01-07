@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ★ スマホ対応のために追加するべきコード ★ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>大喜利アプリ - 参加画面</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 id="themeText">お題：---</h1>
+    <h2 id="answerText">回答を待っています…</h2>
+
+    <div class="vote-buttons">
+      <button id="yesBtn" class="vote-btn yes">〇</button>
+      <button id="noBtn" class="vote-btn no">×</button>
+    </div>
+
+    <!-- ★ container の中に移動する（中央揃えのために必須） -->
+    <div id="votedIcon" class="hidden voted-icon">✔</div>
+  </div>
+</body>
+
+<!-- ★★★ script は body の外へ（中央揃えのために必須） ★★★ -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="app.js"></script>
+
+</html>
