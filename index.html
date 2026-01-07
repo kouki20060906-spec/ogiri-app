@@ -2,30 +2,27 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-
-  <!-- ★ スマホ対応のために追加するべきコード ★ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>大喜利アプリ - 参加画面</title>
+  <title>大喜利アプリ - ホーム</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div class="container">
-    <h1>大喜利ルーム作成</h1>
+    <h1>大喜利アプリ</h1>
 
-    <button id="createRoomBtn" class="primary-btn">ルームを作成する</button>
-    <p id="roomCodeDisplay">ルーム番号：----</p>
-
-    <button id="goToAnswerBtn" class="secondary-btn" style="display:none;">
-      回答入力画面へ進む
-    </button>
+    <button id="goCreate" class="primary-btn">ルームを作成する</button>
+    <button id="goJoin" class="secondary-btn">ルームに入る</button>
   </div>
+
+  <script>
+    document.getElementById("goCreate").addEventListener("click", () => {
+      window.location.href = "create.html";
+    });
+
+    document.getElementById("goJoin").addEventListener("click", () => {
+      window.location.href = "join.html";
+    });
+  </script>
 </body>
-
-<!-- ★★★ ここに移動（中央揃えのために必須） ★★★ -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<script src="app.js"></script>
-
 </html>

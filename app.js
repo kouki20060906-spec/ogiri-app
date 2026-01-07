@@ -30,42 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const path = window.location.pathname;
 
- // ==============================
-// index.html（ルーム作成）
-// ==============================
-if (
-  path.endsWith("/") ||
-  path.endsWith("/index.html") ||
-  path.endsWith("ogiri-app/") ||
-  path.endsWith("ogiri-app")
-) {
+  // ==============================
+  // create.html（ルーム作成）
+  // ==============================
+  if (path.endsWith("create.html")) {
 
-// index.html からルーム参加
-const joinFromIndexBtn = document.getElementById("joinFromIndexBtn");
-
-if (joinFromIndexBtn) {
-  joinFromIndexBtn.addEventListener("click", () => {
-    const roomCode = document.getElementById("joinRoomCodeInput").value.trim();
-    const name = document.getElementById("joinNameInput").value.trim();
-
-    if (!roomCode || !name) {
-      alert("ルーム番号と名前を入力してください");
-      return;
-    }
-
-    const userId = "user_" + Math.random().toString(36).substr(2, 9);
-    const userRef = db.ref(`rooms/${roomCode}/users/${userId}`);
-
-    userRef.set({
-      name: name,
-      online: true
-    });
-
-    userRef.child("online").onDisconnect().set(false);
-
-    window.location.href = `vote.html?room=${roomCode}&user=${userId}`;
-  });
-}
     const createRoomBtn = document.getElementById("createRoomBtn");
     const goToAnswerBtn = document.getElementById("goToAnswerBtn");
     const roomCodeDisplay = document.getElementById("roomCodeDisplay");
@@ -90,32 +59,7 @@ if (joinFromIndexBtn) {
       window.location.href = `answer.html?room=${createdRoomCode}`;
     });
   }
-// index.html からルーム参加
-const joinFromIndexBtn = document.getElementById("joinFromIndexBtn");
 
-if (joinFromIndexBtn) {
-  joinFromIndexBtn.addEventListener("click", () => {
-    const roomCode = document.getElementById("joinRoomCodeInput").value.trim();
-    const name = document.getElementById("joinNameInput").value.trim();
-
-    if (!roomCode || !name) {
-      alert("ルーム番号と名前を入力してください");
-      return;
-    }
-
-    const userId = "user_" + Math.random().toString(36).substr(2, 9);
-    const userRef = db.ref(`rooms/${roomCode}/users/${userId}`);
-
-    userRef.set({
-      name: name,
-      online: true
-    });
-
-    userRef.child("online").onDisconnect().set(false);
-
-    window.location.href = `vote.html?room=${roomCode}&user=${userId}`;
-  });
-}
   // ==============================
   // join.html（参加者登録）
   // ==============================
@@ -164,14 +108,12 @@ if (joinFromIndexBtn) {
     const startVoteBtn = document.getElementById("startVoteBtn");
     const goToResultBtn = document.getElementById("goToResultBtn");
 
-    // ★ 参加者数をリアルタイム更新
     db.ref(`rooms/${roomCode}/users`).on("value", snap => {
       const users = snap.val() || {};
       const activeCount = Object.values(users).filter(u => u.online).length;
       document.getElementById("activeCount").textContent = activeCount;
     });
 
-    // お題投稿
     postThemeBtn.addEventListener("click", () => {
       const themeText = themeInput.value.trim();
       if (!themeText) {
@@ -179,24 +121,17 @@ if (joinFromIndexBtn) {
         return;
       }
 
-      postThemeBtn.classList.add("button-animate");
-      setTimeout(() => postThemeBtn.classList.remove("button-animate"), 250);
-
       db.ref(`rooms/${roomCode}`).update({
         theme: themeText
       });
     });
 
-    // 回答投稿 → 投票開始
     startVoteBtn.addEventListener("click", () => {
       const answer = answerInput.value.trim();
       if (!answer) {
         alert("回答を入力してください");
         return;
       }
-
-      startVoteBtn.classList.add("button-animate");
-      setTimeout(() => startVoteBtn.classList.remove("button-animate"), 250);
 
       db.ref(`rooms/${roomCode}`).update({
         currentAnswer: answer,
@@ -206,12 +141,7 @@ if (joinFromIndexBtn) {
       db.ref(`rooms/${roomCode}/votes`).set({});
     });
 
-    // 手動で結果画面へ
     goToResultBtn.addEventListener("click", () => {
-
-      goToResultBtn.classList.add("button-animate");
-      setTimeout(() => goToResultBtn.classList.remove("button-animate"), 250);
-
       db.ref(`rooms/${roomCode}`).update({
         state: "result"
       });
@@ -240,50 +170,28 @@ if (joinFromIndexBtn) {
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
-    // お題をリアルタイム表示
     db.ref(`rooms/${roomCode}/theme`).on("value", snap => {
       const theme = snap.val();
       themeText.textContent = "お題：" + (theme || "---");
     });
 
-    // 回答をリアルタイム表示
     db.ref(`rooms/${roomCode}/currentAnswer`).on("value", snap => {
       const answer = snap.val();
       answerText.textContent = answer || "回答を待っています…";
 
       yesBtn.classList.remove("selected");
-      yesBtn.classList.add("not-selected");
-
       noBtn.classList.remove("selected");
-      noBtn.classList.add("not-selected");
-
-      document.getElementById("votedIcon").classList.add("hidden");
     });
 
     yesBtn.addEventListener("click", () => {
       db.ref(`rooms/${roomCode}/votes/${userId}`).set("yes");
-
       yesBtn.classList.add("selected");
-      yesBtn.classList.remove("not-selected");
-
-      noBtn.classList.add("not-selected");
-      noBtn.classList.remove("selected");
-
-      document.getElementById("votedIcon").classList.remove("hidden");
     });
 
     noBtn.addEventListener("click", () => {
       db.ref(`rooms/${roomCode}/votes/${userId}`).set("no");
-
       noBtn.classList.add("selected");
-      noBtn.classList.remove("not-selected");
-
-      yesBtn.classList.add("not-selected");
-      yesBtn.classList.remove("selected");
-
-      document.getElementById("votedIcon").classList.remove("hidden");
     });
-
   }
 
   // ==============================
@@ -343,7 +251,6 @@ if (joinFromIndexBtn) {
       });
       window.location.href = `answer.html?room=${roomCode}`;
     });
-
   }
 
 }); // DOMContentLoaded
