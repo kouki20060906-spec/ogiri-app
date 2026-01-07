@@ -30,13 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const path = window.location.pathname;
 
-  // ==============================
-  // index.html（ルーム作成）
-  // ==============================
-  const page = location.href.split("/").pop();
-
-  // GitHub Pages 完全対応
-  if (page === "" || page === "index.html" || page === "ogiri-app") {
+ // ==============================
+// index.html（ルーム作成）
+// ==============================
+if (
+  path.endsWith("/") ||
+  path.endsWith("/index.html") ||
+  path.endsWith("ogiri-app/") ||
+  path.endsWith("ogiri-app")
+) {
 
     const createRoomBtn = document.getElementById("createRoomBtn");
     const goToAnswerBtn = document.getElementById("goToAnswerBtn");
