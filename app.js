@@ -124,6 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
       db.ref(`rooms/${roomCode}`).update({
         theme: themeText
       });
+
+      // ★ 投稿済みに変更
+      postThemeBtn.textContent = "投稿済み";
+      postThemeBtn.disabled = true;
     });
 
     startVoteBtn.addEventListener("click", () => {
@@ -139,6 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       db.ref(`rooms/${roomCode}/votes`).set({});
+
+      // ★ 投稿済みに変更
+      startVoteBtn.textContent = "投稿済み";
+      startVoteBtn.disabled = true;
     });
 
     goToResultBtn.addEventListener("click", () => {
@@ -149,7 +157,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // ==============================
   // vote.html（参加者：投票画面）
+  // ==============================
   if (path.endsWith("vote.html")) {
 
     const params = new URLSearchParams(window.location.search);
@@ -176,9 +186,14 @@ document.addEventListener("DOMContentLoaded", () => {
     db.ref(`rooms/${roomCode}/currentAnswer`).on("value", snap => {
       const answer = snap.val();
       answerText.textContent = answer || "回答を待っています…";
+
+      // ★ 新しいお題が来たらボタンをリセット
+      yesBtn.classList.remove("selected", "not-selected");
+      noBtn.classList.remove("selected", "not-selected");
+      document.getElementById("votedIcon").classList.add("hidden");
     });
 
-   yesBtn.addEventListener("click", () => {
+    yesBtn.addEventListener("click", () => {
       db.ref(`rooms/${roomCode}/votes/${userId}`).set("yes");
 
       yesBtn.classList.add("selected");
@@ -202,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("votedIcon").classList.remove("hidden");
     });
 
-  }  
+  }
 
   // ==============================
   // result.html（主催者：結果画面）
