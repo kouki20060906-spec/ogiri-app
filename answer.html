@@ -2,54 +2,47 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-
-  <!-- ★ スマホ対応のために追加するべきコード ★ -->
+  <title>主催者画面（お題と回答）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>大喜利アプリ - 参加画面</title>
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    .button-animate {
-      animation: pop 0.25s ease;
-    }
-    @keyframes pop {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.15); }
-      100% { transform: scale(1); }
-    }
-  </style>
 </head>
-
 <body>
+
   <div class="container">
+
     <h1>主催者画面</h1>
 
-    <p id="roomCodeDisplay"></p>
-    <p>参加者数：<span id="activeCount">0</span></p>
+    <!-- 参加者数カード -->
+    <div class="card">
+      <h2>参加者数</h2>
+      <p><span id="activeCount">0</span> 人</p>
+    </div>
 
-    <h2>お題を入力</h2>
-    <input id="themeInput" type="text" placeholder="お題を入力">
-    <button id="postThemeBtn" class="primary-btn">お題を送信</button>
+    <!-- お題入力カード -->
+    <div class="card">
+      <h2>お題を入力</h2>
+      <input id="themeInput" type="text" placeholder="お題を入力" class="input-main">
+      <button id="postThemeBtn" class="btn-main">お題を投稿</button>
+    </div>
 
-    <h2>回答を入力</h2>
-    <input id="answerInput" type="text" placeholder="回答を入力">
-    <button id="startVoteBtn" class="primary-btn">投票を開始</button>
+    <!-- 回答入力カード -->
+    <div class="card">
+      <h2>回答を入力</h2>
+      <input id="answerInput" type="text" placeholder="回答を入力" class="input-main">
+      <button id="startVoteBtn" class="btn-main">回答を投稿</button>
+    </div>
 
-    <button id="goToResultBtn" class="secondary-btn">結果を見る</button>
+    <!-- 結果へ進む -->
+    <div class="card">
+      <button id="goToResultBtn" class="btn-main">結果を見る</button>
+    </div>
+
   </div>
+
+  <!-- Firebase & app.js -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="app.js"></script>
+
 </body>
-
-<!-- ★★★ ここに移動する（中央揃えのために必須） ★★★ -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<script src="app.js"></script>
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const roomCode = params.get("room");
-  if (roomCode) {
-    document.getElementById("roomCodeDisplay").textContent = "ルーム番号：" + roomCode;
-  }
-</script>
-
 </html>

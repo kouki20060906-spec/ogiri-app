@@ -1,219 +1,158 @@
-/* 全体の背景とフォント */
+/* ==============================
+   全体レイアウト（背景・フォント）
+============================== */
 body {
   margin: 0;
   padding: 0;
   font-family: "Noto Sans JP", sans-serif;
-  background: radial-gradient(circle, #fffbe6, #ffd93d);
-  color: #333;
-}
-
-/* コンテナ */
-.container {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  box-sizing: border-box;
-}
-
-/* タイトル */
-h1 {
+  background: linear-gradient(180deg, #fff7d1, #ffe08a);
   text-align: center;
-  font-size: 28px;
-  background: #ff8c42;
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
 }
 
-/* 見出し */
+.container {
+  padding: 20px;
+}
+
+/* ==============================
+   カードデザイン（全ページ共通）
+============================== */
+.card {
+  background: white;
+  padding: 24px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
 h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+/* ==============================
+   ボタン（全ページ統一）
+============================== */
+.btn-main {
+  width: 100%;
+  max-width: 320px;
+  margin: 12px auto;
+  display: block;
+
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 14px 24px;
   font-size: 20px;
-  margin-top: 24px;
-  margin-bottom: 8px;
-  color: #444;
-}
-
-/* 入力欄 */
-input[type="text"] {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #ffd93d;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  box-sizing: border-box;
-}
-
-/* ボタン共通 */
-button {
-  font-size: 16px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* プライマリボタン（オレンジ） */
-.primary-btn {
-  background-color: #ff8c42;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  margin-bottom: 12px;
-}
-
-/* セカンダリボタン（白） */
-.secondary-btn {
-  background-color: white;
-  color: #ff8c42;
-  border: 2px solid #ff8c42;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* ボタンホバー */
-button:hover {
-  transform: scale(1.05);
-}
-
-/* ボタンアニメーション */
-.button-animate {
-  animation: pop 0.25s ease;
-}
-
-@keyframes pop {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-
-/* 投票ボタン（〇×） */
-.vote-btn {
-  width: 120px;
-  height: 120px;
-  font-size: 24px;
-  border-radius: 50%;
-  margin: 12px;
-  border: none;
-  color: white;
   font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #c77700;
+  transition: 0.2s;
 }
 
-.vote-btn.yes {
-  background-color: #4CAF50;
+.btn-main:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #c77700;
 }
 
-.vote-btn.no {
-  background-color: #F44336;
+.btn-main:disabled {
+  background-color: #aaa !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+/* ==============================
+   投票ボタン（YES / NO）
+============================== */
+#yesBtn, #noBtn {
+  width: 45%;
+  margin: 10px 2%;
+  padding: 16px;
+  font-size: 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: bold;
+}
+
+#yesBtn.selected {
+  background-color: #4caf50;
+  color: white;
+}
+
+#noBtn.selected {
+  background-color: #f44336;
+  color: white;
+}
+
+#yesBtn.not-selected,
+#noBtn.not-selected {
+  background-color: #ddd;
+  color: #666;
 }
 
 /* 投票済みアイコン */
 #votedIcon {
-  font-size: 18px;
-  color: #2196F3;
-  margin-top: 12px;
+  margin-top: 10px;
+  font-size: 20px;
 }
 
-/* 隠す */
 .hidden {
   display: none;
 }
 
-/* 選択状態 */
-.selected {
-  opacity: 1;
-  transform: scale(1.1);
+/* ==============================
+   IPPON!! 演出
+============================== */
+#ipponEffect {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.2);
+  font-size: 120px;
+  font-weight: 900;
+  color: #ffdd00;
+  text-shadow: 0 0 20px #ff8800, 0 0 40px #ff4400;
+  opacity: 0;
+  z-index: 99999;
+  pointer-events: none;
+  animation: none;
 }
 
-.not-selected {
-  opacity: 0.5;
-  transform: scale(1);
+@keyframes ipponPop {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0; }
+  20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  40% { transform: translate(-50%, -50%) scale(1); }
+  70% { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
 }
 
-/* 結果画面の棒グラフ風 */
-.result-bar {
-  height: 24px;
-  border-radius: 12px;
-  margin: 8px 0;
+/* ==============================
+   紙吹雪キャンバス
+============================== */
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
 }
-
-.result-bar.yes {
-  background-color: #4CAF50;
-}
-
-.result-bar.no {
-  background-color: #F44336;
-}
-
-/* 投票ボタンの横並び */
-.vote-buttons {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-/* スマホ対応：画面幅が480px以下のとき */
-@media screen and (max-width: 480px) {
-
-  /* 画面全体を上下中央に */
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-
-  .container {
-    width: 90%;
-    max-width: 400px;
-    margin: 0; /* 中央揃えのため余白を消す */
-    padding: 16px;
-  }
-
-  h1 {
-    font-size: 24px;
-    padding: 10px;
-  }
-
-  h2 {
-    font-size: 18px;
-  }
-
-  input[type="text"] {
-    font-size: 16px;
-    padding: 10px;
-  }
-
-  button {
-    font-size: 16px;
-    padding: 10px;
-  }
-
-  .vote-btn {
-    width: 100px;
-    height: 100px;
-    font-size: 20px;
-    margin: 8px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-
-  .container {
-    margin: 0; /* ← これが最重要 */
-    width: 90%;
-    max-width: 400px;
-  }
+.input-main {
+  width: 100%;
+  max-width: 320px;
+  padding: 12px;
+  margin: 10px auto;
+  display: block;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
 }

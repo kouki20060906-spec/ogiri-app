@@ -2,32 +2,39 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-
-  <!-- ★ スマホ対応のために追加するべきコード ★ -->
+  <title>結果画面</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>大喜利アプリ - 参加画面</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
   <div class="container">
     <h1>結果</h1>
 
-    <h2 id="currentAnswer">回答なし</h2>
-    <p>参加者数：<span id="activeCount">0</span></p>
-    <p>〇：<span id="yesCount">0</span></p>
-    <p>×：<span id="noCount">0</span></p>
+    <div class="card">
+      <h2>答え</h2>
+      <p id="currentAnswer">回答なし</p>
 
-    <h2 id="perfectMessage" class="hidden">PERFECT!!</h2>
+      <p>参加者数：<span id="activeCount">0</span></p>
 
-    <button id="nextBtn" class="primary-btn">次の回答へ</button>
+      <p>〇：<span id="yesCount">0</span></p>
+      <p>✕：<span id="noCount">0</span></p>
+
+      <p id="perfectMessage" class="hidden">全員から〇がつきました！</p>
+
+      <!-- 統一ボタン -->
+      <button id="nextBtn" class="btn-main">次の回答へ</button>
+    </div>
   </div>
+
+  <!-- IPPON!! 演出 -->
+  <div id="ipponEffect" class="hidden">IPPON!!</div>
+
+  <!-- 紙吹雪キャンバス -->
+  <canvas id="confettiCanvas" class="hidden"></canvas>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="app.js"></script>
 </body>
-
-<!-- ★★★ ここに移動（中央揃えのために必須） ★★★ -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<script src="app.js"></script>
-
 </html>

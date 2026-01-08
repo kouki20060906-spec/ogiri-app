@@ -108,12 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const startVoteBtn = document.getElementById("startVoteBtn");
     const goToResultBtn = document.getElementById("goToResultBtn");
 
+    // 参加者数表示（参考用）
     db.ref(`rooms/${roomCode}/users`).on("value", snap => {
       const users = snap.val() || {};
       const activeCount = Object.values(users).filter(u => u.online).length;
       document.getElementById("activeCount").textContent = activeCount;
     });
 
+    // ★ お題投稿 → 投稿済みにする
     postThemeBtn.addEventListener("click", () => {
       const themeText = themeInput.value.trim();
       if (!themeText) {
@@ -125,11 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
         theme: themeText
       });
 
-      // ★ 投稿済みに変更
       postThemeBtn.textContent = "投稿済み";
       postThemeBtn.disabled = true;
     });
 
+    // ★ 回答投稿 → 投稿済みにする
     startVoteBtn.addEventListener("click", () => {
       const answer = answerInput.value.trim();
       if (!answer) {
@@ -144,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       db.ref(`rooms/${roomCode}/votes`).set({});
 
-      // ★ 投稿済みに変更
       startVoteBtn.textContent = "投稿済み";
       startVoteBtn.disabled = true;
     });
@@ -178,16 +179,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
+    // お題表示
     db.ref(`rooms/${roomCode}/theme`).on("value", snap => {
       const theme = snap.val();
       themeText.textContent = "お題：" + (theme || "---");
     });
 
+    // ★ 新しい回答が来たら投票ボタンをリセット
     db.ref(`rooms/${roomCode}/currentAnswer`).on("value", snap => {
       const answer = snap.val();
       answerText.textContent = answer || "回答を待っています…";
 
-      // ★ 新しいお題が来たらボタンをリセット
       yesBtn.classList.remove("selected", "not-selected");
       noBtn.classList.remove("selected", "not-selected");
       document.getElementById("votedIcon").classList.add("hidden");
@@ -197,11 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
       db.ref(`rooms/${roomCode}/votes/${userId}`).set("yes");
 
       yesBtn.classList.add("selected");
-      yesBtn.classList.remove("not-selected");
-
       noBtn.classList.add("not-selected");
-      noBtn.classList.remove("selected");
-
       document.getElementById("votedIcon").classList.remove("hidden");
     });
 
@@ -209,11 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
       db.ref(`rooms/${roomCode}/votes/${userId}`).set("no");
 
       noBtn.classList.add("selected");
-      noBtn.classList.remove("not-selected");
-
       yesBtn.classList.add("not-selected");
-      yesBtn.classList.remove("selected");
-
       document.getElementById("votedIcon").classList.remove("hidden");
     });
 
@@ -240,18 +234,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const perfectMessage = document.getElementById("perfectMessage");
     const nextBtn = document.getElementById("nextBtn");
 
-    let activeCount = 0;
-
-    db.ref(`rooms/${roomCode}/users`).on("value", snap => {
-      const users = snap.val() || {};
-      activeCount = Object.values(users).filter(u => u.online).length;
-      activeCountEl.textContent = activeCount;
-    });
-
+    // 回答表示
     db.ref(`rooms/${roomCode}/currentAnswer`).on("value", snap => {
       currentAnswer.textContent = snap.val() || "回答なし";
     });
 
+    // ★ 投票結果監視 → 全員YESなら演出発動
     db.ref(`rooms/${roomCode}/votes`).on("value", snap => {
       const votes = snap.val() || {};
 
@@ -261,8 +249,16 @@ document.addEventListener("DOMContentLoaded", () => {
       yesCountEl.textContent = yesCount;
       noCountEl.textContent = noCount;
 
+      // ★ 修正ポイント：参加者数を votes の人数から計算
+      const activeCount = Object.keys(votes).length;
+      activeCountEl.textContent = activeCount;
+
+      // ★ 全員一致の判定
       if (yesCount === activeCount && activeCount > 0) {
         perfectMessage.classList.remove("hidden");
+
+        triggerIpponEffect();
+        startConfetti();
       } else {
         perfectMessage.classList.add("hidden");
       }
@@ -299,4 +295,68 @@ function watchState(roomCode) {
       window.location.href = `result.html?room=${roomCode}`;
     }
   });
+}
+
+// ==============================
+// ★ IPPON!! 演出
+// ==============================
+function triggerIpponEffect() {
+  const ippon = document.getElementById("ipponEffect");
+
+  ippon.classList.remove("hidden");
+  ippon.style.animation = "none";
+  void ippon.offsetWidth;
+
+  ippon.style.animation = "ipponPop 1.5s ease-out forwards";
+
+  setTimeout(() => {
+    ippon.classList.add("hidden");
+  }, 2000);
+}
+
+// ==============================
+// ★ 紙吹雪演出（本体）
+// ==============================
+function startConfetti() {
+  const canvas = document.getElementById("confettiCanvas");
+  canvas.classList.remove("hidden");
+
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const confetti = [];
+  const colors = ["#ff4d4d", "#4dff4d", "#4d4dff", "#ffff4d", "#ff4dff"];
+
+  for (let i = 0; i < 150; i++) {
+    confetti.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      r: Math.random() * 6 + 4,
+      c: colors[Math.floor(Math.random() * colors.length)],
+      s: Math.random() * 3 + 2
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    confetti.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.c;
+      ctx.fill();
+
+      p.y += p.s;
+      if (p.y > canvas.height) p.y = -10;
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  setTimeout(() => {
+    canvas.classList.add("hidden");
+  }, 5000);
 }
