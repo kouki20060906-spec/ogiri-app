@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Noto Sans JP", sans-serif;
-  background: linear-gradient(180deg, #fff7d1, #ffe08a);
+  background: #fff7d1;
   text-align: center;
 }
 
@@ -71,14 +71,31 @@ h2 {
 /* ==============================
    投票ボタン（YES / NO）
 ============================== */
-#yesBtn, #noBtn {
+.vote-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.vote-btn {
   width: 45%;
-  margin: 10px 2%;
+  margin: 0 2%;
   padding: 16px;
-  font-size: 24px;
+  font-size: 32px;
   border-radius: 12px;
   border: none;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.vote-btn.yes {
+  background-color: #4caf50;
+  color: white;
+}
+
+.vote-btn.no {
+  background-color: #f44336;
+  color: white;
 }
 
 #yesBtn.selected {
@@ -99,8 +116,9 @@ h2 {
 
 /* 投票済みアイコン */
 #votedIcon {
-  margin-top: 10px;
-  font-size: 20px;
+  margin-top: 20px;
+  font-size: 32px;
+  color: #333;
 }
 
 .hidden {
@@ -145,6 +163,10 @@ h2 {
   pointer-events: none;
   z-index: 9999;
 }
+
+/* ==============================
+   入力欄（全ページ統一）
+============================== */
 .input-main {
   width: 100%;
   max-width: 320px;
@@ -155,4 +177,24 @@ h2 {
   border-radius: 10px;
   border: 2px solid #ccc;
   box-sizing: border-box;
+}
+
+/* ==============================
+   部屋番号の表示
+============================== */
+
+.room-code {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* ==============================
+   投稿済みボタン
+============================== */
+.btn-disabled {
+  background: #ccc;
+  color: #666;
+  cursor: default;
+  pointer-events: none;
 }

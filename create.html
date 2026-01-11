@@ -2,29 +2,38 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <title>ルーム作成</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>大喜利アプリ - ルーム作成</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 
-<body>
+<body data-page="create">
+
   <div class="container">
+
     <h1>ルーム作成</h1>
 
-    <button id="createRoomBtn" class="primary-btn">ルームを作成する</button>
-    <p id="roomCodeDisplay">ルーム番号：----</p>
+    <button id="createRoomBtn" class="btn-main">ルームを作成する</button>
 
-    <button id="goToAnswerBtn" class="secondary-btn" style="display:none;">
-      回答入力画面へ進む
+    <p id="roomCodeDisplay" class="room-code">ルーム番号：----</p>
 
-    <button class="secondary-btn" onclick="window.location.href='index.html'">
-      ホームに戻る
-
+    <button id="goToAnswerBtn" class="btn-main" style="display:none;">
+      主催者画面へ
     </button>
+
+    <button onclick="location.href='index.html'" class="btn-main">
+      ホームに戻る
+    </button>
+
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="app.js"></script>
+  <!-- Firebase v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <!-- ★★★ これが必要だった！ ★★★ -->
+  <script src="app.js?v=7"></script>
+
 </body>
 </html>

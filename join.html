@@ -2,30 +2,36 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <title>ルーム参加</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>大喜利アプリ - ルーム参加</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 
-<body>
+<body data-page="join">
+
   <div class="container">
+
     <h1>ルームに参加</h1>
 
-    <input id="roomCodeInput" type="text" placeholder="ルーム番号を入力">
-    <input id="nameInput" type="text" placeholder="名前を入力">
+    <div class="card">
+      <input id="roomCodeInput" type="text" placeholder="ルーム番号を入力" class="input-main">
+      <input id="nameInput" type="text" placeholder="名前を入力" class="input-main">
+      <button id="joinBtn" class="btn-main">参加する</button>
+    </div>
 
-    <button id="joinBtn" class="primary-btn">参加する</button>
-
-    <button class="secondary-btn" onclick="window.location.href='index.html'">
+    <button onclick="location.href='index.html'" class="btn-main">
       ホームに戻る
     </button>
+
   </div>
 
   <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-  <!-- メイン処理 -->
-  <script src="app.js"></script>
+  <!-- ★★★ 必須！ ★★★ -->
+  <script src="app.js?v=7"></script>
+
 </body>
 </html>

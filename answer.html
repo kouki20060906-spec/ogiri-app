@@ -4,45 +4,55 @@
   <meta charset="UTF-8">
   <title>主催者画面（お題と回答）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
-<body>
+
+<body data-page="answer">
 
   <div class="container">
 
     <h1>主催者画面</h1>
+    <p id="roomCodeDisplay" class="room-code">ルーム番号：---</p>
 
-    <!-- 参加者数カード -->
+    <!-- 参加者数 -->
     <div class="card">
       <h2>参加者数</h2>
       <p><span id="activeCount">0</span> 人</p>
     </div>
 
-    <!-- お題入力カード -->
+    <!-- 現在の回答（currentIndex の位置） -->
+    <div class="card">
+      <h2>現在の回答</h2>
+      <p id="currentAnswerDisplay">---</p>
+    </div>
+
+    <!-- お題入力 -->
     <div class="card">
       <h2>お題を入力</h2>
       <input id="themeInput" type="text" placeholder="お題を入力" class="input-main">
       <button id="postThemeBtn" class="btn-main">お題を投稿</button>
     </div>
 
-    <!-- 回答入力カード -->
+    <!-- 回答入力 -->
     <div class="card">
       <h2>回答を入力</h2>
       <input id="answerInput" type="text" placeholder="回答を入力" class="input-main">
       <button id="startVoteBtn" class="btn-main">回答を投稿</button>
     </div>
 
-    <!-- 結果へ進む -->
+    <!-- 結果へ -->
     <div class="card">
       <button id="goToResultBtn" class="btn-main">結果を見る</button>
     </div>
 
   </div>
 
-  <!-- Firebase & app.js -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <script src="app.js"></script>
+
+  <!-- ★ JS もキャッシュ破壊 -->
+  <script src="app.js?v=8"></script>
 
 </body>
 </html>

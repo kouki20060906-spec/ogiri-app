@@ -4,15 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>大喜利アプリ - ホーム</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- ★ キャッシュ破壊（v=5 など自由に変更） -->
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 
 <body>
   <div class="container">
     <h1>大喜利アプリ</h1>
 
-    <button id="goCreate" class="primary-btn">ルームを作成する</button>
-    <button id="goJoin" class="secondary-btn">ルームに入る</button>
+    <div class="card">
+      <!-- 統一ボタン -->
+      <button id="goCreate" class="btn-main">ルームを作成する</button>
+      <button id="goJoin" class="btn-main">ルームに入る</button>
+    </div>
   </div>
 
   <script>

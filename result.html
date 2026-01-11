@@ -4,37 +4,57 @@
   <meta charset="UTF-8">
   <title>結果画面</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- ★ キャッシュ破壊 -->
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
-<body>
+
+<!-- ★ この data-page が超重要！ -->
+<body data-page="result">
 
   <div class="container">
-    <h1>結果</h1>
 
+    <h1>結果画面</h1>
+
+    <!-- 現在の回答 -->
     <div class="card">
-      <h2>答え</h2>
-      <p id="currentAnswer">回答なし</p>
-
-      <p>参加者数：<span id="activeCount">0</span></p>
-
-      <p>〇：<span id="yesCount">0</span></p>
-      <p>✕：<span id="noCount">0</span></p>
-
-      <p id="perfectMessage" class="hidden">全員から〇がつきました！</p>
-
-      <!-- 統一ボタン -->
-      <button id="nextBtn" class="btn-main">次の回答へ</button>
+      <h2>現在の回答</h2>
+      <p id="currentAnswer">---</p>
     </div>
+
+    <!-- 投票結果 -->
+    <div class="card">
+      <h2>投票結果</h2>
+      <p>YES：<span id="yesCount">0</span></p>
+      <p>NO：<span id="noCount">0</span></p>
+    </div>
+
+    <!-- 参加者数 -->
+    <div class="card">
+      <h2>参加者数</h2>
+      <p><span id="activeCount">0</span> 人</p>
+    </div>
+
+    <!-- 次へ進む -->
+    <button id="nextBtn" class="btn-main">次の回答へ</button>
+
+    <!-- ホームへ戻る -->
+    <button onclick="location.href='index.html'" class="btn-main">
+      ホームに戻る
+    </button>
+
   </div>
 
   <!-- IPPON!! 演出 -->
-  <div id="ipponEffect" class="hidden">IPPON!!</div>
-
-  <!-- 紙吹雪キャンバス -->
+  <div id="ipponEffect" class="ippon hidden">IPPON!!</div>
   <canvas id="confettiCanvas" class="hidden"></canvas>
 
+  <!-- Firebase v8 -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <script src="app.js"></script>
+
+  <!-- ★★★ app.js を必ず 1 回だけ読み込む ★★★ -->
+  <script src="app.js?v=8"></script>
+
 </body>
 </html>
